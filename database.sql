@@ -1,4 +1,6 @@
-CREATE DATABASE kickstartthis(id SERIAL PRIMARY KEY, title VARCHAR(50), description VARCHAR(500), funds_goal INT, funds_raised INT, images TEXT[], creator_name NOT NULL TEXT, creator_email NOT NULL VARCHAR(100), created_at TIMESTAMPTZ DEFAULT NOW());
+CREATE TABLE kickstartthis(
+    id SERIAL PRIMARY KEY, title VARCHAR(50), description VARCHAR(500), funds_goal INT, funds_raised INT, images TEXT[], creator_name VARCHAR(50), creator_email VARCHAR(100), created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
 INSERT INTO kickstartthis(title, description, funds_goal, funds_raised, images, creator_name, creator_email, created_at) VALUES ('Aleemoo Adventure Pants', 'Awesome, durable pants with 11 useful pockets to accompany you on every adventure— from hikes to airports to happy hours and beyond.', 20000, '{"https://ksr-ugc.imgix.net/assets/032/230/076/25ac0b7f756193aa1d8391037ab4aafd_original.jpg?ixlib=rb-4.0.2&crop=faces&w=1552&h=873&fit=crop&v=1612288419&auto=format&frame=1&q=92&s=e452510c7c4dc460797ee779742c5e43", "https://cdn.blessthisstuff.com/imagens/stuff/ecotrek-adventure-pants.jpg"}', 'Jane Russell', 'jr_oregon_rocks.com', )
 
