@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const pool = require("./db");
+app.set('port', process.env.PORT || 3000);
 
 app.use(cors());
 app.use(express.json());
@@ -60,6 +61,8 @@ app.delete('/products/:id', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Server has started on port 3000')
+app.locals.title = "Kickstart This API"
+
+app.listen(app.get('port'), () => {
+    console.log(`${app.locals.title} is running on port ${app.get('port')}.`)
 })
