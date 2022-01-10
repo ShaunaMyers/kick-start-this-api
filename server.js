@@ -7,13 +7,14 @@ app.set('port', process.env.PORT || 3000);
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    pool.query('SELECT * FROM products', (err, response) => {
-      console.log(err, response)
-      err
-      ? res.status(500).send('Database Error')
-      : res.status(200).send({rows: response.rows})
-    })
+app.get('/products', (req, res) => {
+    res.send("HIIIII")
+    // pool.query('SELECT * FROM products', (err, response) => {
+    //   console.log(err, response)
+    //   err
+    //   ? res.status(500).send('Database Error')
+    //   : res.status(200).send({rows: response.rows})
+    // })
 })
 
 app.post('/products', (req, res) => {

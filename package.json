@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -16,10 +18,13 @@
     "cors": "^2.8.5",
     "dot-env": "^0.0.1",
     "express": "^4.17.2",
-    "nodemon": "^2.0.15",
+    "knex": "^0.95.15",
     "pg": "^8.7.1"
   },
   "engines": {
     "node": "17.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
