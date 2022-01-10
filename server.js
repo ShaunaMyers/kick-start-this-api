@@ -8,13 +8,13 @@ app.use(cors());
 app.use(express.json());
 const { Pool } = require('pg');
 
-// const pool = require("./db");
+const pool = require("./db");
 // app.set('port', process.env.PORT || 3000);
 
-const pool = new Pool({
-    connectionString: 'postgres://voyiocnzqqozfy:e110e2aa7bd50865163ad047f9f5e2640feca01c42e17a223e11bd886c9f8356@ec2-54-196-105-177.compute-1.amazonaws.com:5432/d23r69ghqcp19c',
-    ssl: { rejectUnauthorized: false }
-});
+// const pool = new Pool({
+//     connectionString: 'postgres://voyiocnzqqozfy:e110e2aa7bd50865163ad047f9f5e2640feca01c42e17a223e11bd886c9f8356@ec2-54-196-105-177.compute-1.amazonaws.com:5432/d23r69ghqcp19c',
+//     ssl: { rejectUnauthorized: false }
+// });
 
 app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
