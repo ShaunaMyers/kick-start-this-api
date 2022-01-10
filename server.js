@@ -9,13 +9,6 @@ app.use(express.json());
 // Routes
 
 // Create a product
-app.post("/products", async (req,res) => {
-    try {
-        console.log(req.body)
-    } catch (err) {
-        console.log(err.message)
-    }
-})
 
 app.post('/products', (req, res) => {
     const reqParams = ['title', 'description', 'funds_goal', 'funds_raised', 'images', 'creator_name', 'creator_email'];
