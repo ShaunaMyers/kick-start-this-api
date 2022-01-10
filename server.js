@@ -37,6 +37,18 @@ app.post('/products', (req, res) => {
     })
 })
 
+app.patch('/products/:id', (req, res) => {
+    const { id } = req.params;
+    const { funds_raised } = req.body
+    pool.query(`UPDATE products SET funds_raised =${funds_raised} WHERE id=${id} RETURNING *`,
+    (err, response) => {
+      console.log(err, response)
+      err 
+      ? res.status(500).send('Database Error')
+      : res.status(200).send('Funds_raised successfully updated')
+    })
+})
+
 app.delete('/products/:id', (req, res) => {
     const { id } = req.params;
     pool.query(`DELETE FROM products WHERE id = ${id}`, 
