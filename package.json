@@ -4,14 +4,19 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "build": "babel server.js - out-file index-compiled.js",
+    "start": "nodemon --exec babel-node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
     "cors": "^2.8.5",
+    "dot-env": "^0.0.1",
     "express": "^4.17.2",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.1"
   }
 }
