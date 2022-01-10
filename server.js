@@ -1,20 +1,28 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
+const { response } = require('express');
 const cors = require('cors');
-const pool = require("./db");
-app.set('port', process.env.PORT || 3000);
-
+const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
+const { Pool } = require('pg');
 
-app.get('/products', (req, res) => {
-    res.send("HIIIII")
-    // pool.query('SELECT * FROM products', (err, response) => {
-    //   console.log(err, response)
-    //   err
-    //   ? res.status(500).send('Database Error')
-    //   : res.status(200).send({rows: response.rows})
-    // })
+// const pool = require("./db");
+// app.set('port', process.env.PORT || 3000);
+
+const pool = new Pool({
+    connectionString: 'postgres://voyiocnzqqozfy:e110e2aa7bd50865163ad047f9f5e2640feca01c42e17a223e11bd886c9f8356@ec2-54-196-105-177.compute-1.amazonaws.com:5432/d23r69ghqcp19c',
+    ssl: { rejectUnauthorized: false }
+});
+
+app.get('/', (req, res) => {
+    pool.query('SELECT * FROM products', (err, response) => {
+      console.log(err, response)
+      err
+      ? res.status(500).send('Database Error')
+      : res.status(200).send({rows: response.rows})
+    })
 })
 
 app.post('/products', (req, res) => {
@@ -64,6 +72,10 @@ app.delete('/products/:id', (req, res) => {
 
 app.locals.title = "Kickstart This API"
 
-app.listen(app.get('port'), () => {
-    console.log(`${app.locals.title} is running on port ${app.get('port')}.`)
+// app.listen(app.get('port'), () => {
+//     console.log(`${app.locals.title} is running on port ${app.get('port')}.`)
+// })
+
+app.listen(port, () => {
+    console.log(`${app.locals.title} is running on port ${port}.`)
 })
