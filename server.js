@@ -2,11 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const pool = require("./db");
+app.set('port', process.env.PORT || 3000);
 
 app.use(cors());
 app.use(express.json());
-
-// Routes
 
 app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
@@ -16,8 +15,6 @@ app.get('/', (req, res) => {
       : res.status(200).send({rows: response.rows})
     })
 })
-
-// Create a product
 
 app.post('/products', (req, res) => {
     const reqParams = ['title', 'description', 'funds_goal', 'images', 'creator_name', 'creator_email'];
@@ -39,15 +36,33 @@ app.post('/products', (req, res) => {
         })
       }
     })
-  })
+})
 
-// Get all products
+app.patch('/products/:id', (req, res) => {
+    const { id } = req.params;
+    const { funds_raised } = req.body
+    pool.query(`UPDATE products SET funds_raised =${funds_raised} WHERE id=${id} RETURNING *`,
+    (err, response) => {
+      console.log(err, response)
+      err 
+      ? res.status(500).send('Database Error')
+      : res.status(200).send('Funds_raised successfully updated')
+    })
+})
 
+app.delete('/products/:id', (req, res) => {
+    const { id } = req.params;
+    pool.query(`DELETE FROM products WHERE id = ${id}`, 
+    (err, response) => {
+      console.log(err, response)
+      err 
+      ? res.status(500).send('Database Error')
+      : res.status(200).send('Product successfully deleted')
+    })
+})
 
-// Update funding on project
+app.locals.title = "Kickstart This API"
 
-// Delete product
-
-app.listen(3000, () => {
-    console.log('Server has started on port 3000')
+app.listen(app.get('port'), () => {
+    console.log(`${app.locals.title} is running on port ${app.get('port')}.`)
 })
