@@ -14,7 +14,7 @@ app.get('/products', (req, res) => {
     res.status(200).send(product)
   })
   .catch(error => {
-    res.status(500).send({ message: 'Database error fetching all products' })
+    res.status(500).send(error.message)
   })
 });
 
