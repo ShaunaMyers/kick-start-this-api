@@ -6,6 +6,10 @@ const db = knex(config.development);
 
 // add
 
+async function getAllProducts() {
+    return await db('products');
+}
+
 async function addProduct(product) {
     await db('products').insert(product);
 }
