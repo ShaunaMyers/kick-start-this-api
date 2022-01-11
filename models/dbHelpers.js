@@ -9,8 +9,11 @@ async function getAllProducts() {
 async function addProduct(product) {
     await db('products').insert(product);
 }
-// patch
 
+async function updateFundsRaised(id, amount) {
+    await db('products').where({ "product_id": parseInt(id) })
+    .update('funds_raised', parseInt(amount))
+}
 
 async function removeProduct(id) {
     return await db('products').where({ "product_id": parseInt(id) })
@@ -20,5 +23,6 @@ async function removeProduct(id) {
 module.exports = {
     getAllProducts,
     addProduct,
-    removeProduct
+    removeProduct,
+    updateFundsRaised
 }

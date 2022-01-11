@@ -43,6 +43,18 @@ app.delete('/products/:id', (req, res) => {
   .catch(error => {
     res.status(500).send(error.message)
   })
+});
+
+app.patch('/products/:id/:amount', (req, res) => {
+  const { id, amount } = req.params;
+
+  queries.updateFundsRaised(id, amount)
+  .then(product => {
+    res.status(200).send({ message: 'Product successfully updated'})
+  })
+  .catch(error => {
+    res.status(500).send({ message: 'Unable to update product'})
+  })
 })
 
 
