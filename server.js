@@ -11,10 +11,10 @@ const queries = require('./models/dbHelpers');
 app.get('/products', (req, res) => {
   queries.getAllProducts()
   .then(product => {
-    res.status(200).json(product)
+    res.status(200).json(products)
   })
   .catch(error => {
-    res.status(500).json('Database error fetching all products')
+    res.status(500).json({message: 'Database error fetching all products'})
   })
 });
 
@@ -24,8 +24,8 @@ app.post('/products', (req, res) => {
     res.status(200).json(product)
   })
   .catch(error => {
-    res.status(422).json('Bad request')
-    res.status(500).json(error.message)
+    res.status(422).json({message: 'Bad request'})
+    res.status(500).json({message: 'Database error creating a product'})
   })
 });
 
