@@ -8,6 +8,16 @@ app.use(cors());
 app.use(express.json());
 const queries = require('./models/dbHelpers');
 
+app.get('/products', (req, res) => {
+  queries.getAllProducts()
+  .then(product => {
+    res.status(200).json(product)
+  })
+  .catch(error => {
+    res.status(500).json('Database error fetching all products')
+  })
+});
+
 app.post('/products', (req, res) => {
   queries.addProduct(req.body)
   .then(product => {
