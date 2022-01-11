@@ -3,10 +3,18 @@ const express = require('express');
 const app = express();
 const { response } = require('express');
 const cors = require('cors');
-const port = process.env.PORT || 5000;
-app.use(cors());
+const port = process.env.PORT || 80;
 app.use(express.json());
 const queries = require('./models/dbHelpers');
+// app.use(cors());
+
+app.use(cors({
+  origin: [
+    'https://kickstartthisapi.herokuapp.com/',
+    'http://localhost:80',
+    'http://localhost:3000'
+  ],
+}));
 
 app.get('/products', (req, res) => {
   queries.getAllProducts()
