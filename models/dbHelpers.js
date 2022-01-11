@@ -18,5 +18,6 @@ async function addProduct(product) {
 // delete
 
 module.exports = {
-    addProduct
+    addProduct,
+    getAllProducts
 }
