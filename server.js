@@ -11,23 +11,39 @@ const queries = require('./models/dbHelpers');
 app.get('/products', (req, res) => {
   queries.getAllProducts()
   .then(product => {
-    res.status(200).json(products)
+    res.status(200).send(product)
   })
   .catch(error => {
-    res.status(500).json({message: 'Database error fetching all products'})
+    res.status(500).send({ message: 'Database error fetching all products' })
   })
 });
 
 app.post('/products', (req, res) => {
   queries.addProduct(req.body)
   .then(product => {
-    res.status(200).json(product)
+    res.status(200).send(product)
   })
   .catch(error => {
-    res.status(422).json({message: 'Bad request'})
-    res.status(500).json({message: 'Database error creating a product'})
+    res.status(422).send({ message: 'Bad request' })
+    res.status(500).send({ message: 'Database error creating a product' })
   })
 });
+
+app.delete('/products/:id', (req, res) => {
+  const { id } = req.params;
+
+  queries.removeProduct(id)
+  .then(count => {
+    if (count > 0) {
+      res.status(200).send({ message: "Successfully delelted" })
+    } else {
+      res.status(404).send({ message: 'Unable to locate product' })
+    }
+  })
+  .catch(error => {
+    res.status(500).send(error.message)
+  })
+})
 
 
 
