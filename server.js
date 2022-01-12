@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const { Pool } = require('pg')
+const { db } = require('./config')
 app.set('port', process.env.PORT || 3002)
 app.use(cors());
 // app.use(cors(origin))
@@ -20,14 +20,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // }
   
 
-const pool = new Pool({
-  connectionString: 'postgres://nmnzrevhvqlvlf:7fdb43aff2fd279d4800e53dc6b90954810dea7b2c26018adbb193059627c9ce@ec2-3-225-41-234.compute-1.amazonaws.com:5432/dfr1lbi5hi600i',
-  ssl: { rejectUnauthorized: false }
-})
+// const pool = new Pool({
+//   connectionString: 'postgres://nmnzrevhvqlvlf:7fdb43aff2fd279d4800e53dc6b90954810dea7b2c26018adbb193059627c9ce@ec2-3-225-41-234.compute-1.amazonaws.com:5432/dfr1lbi5hi600i',
+//   ssl: { rejectUnauthorized: false }
+// })
 
 
 app.get('/', (req, res) => {
-    pool.query('SELECT * FROM products', (err, response) => {
+    db.query('SELECT * FROM products', (err, response) => {
       console.log(err, response)
       err
       ? res.status(500).send(`Database error: ${err.message}`)
