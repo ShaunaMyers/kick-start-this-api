@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-// const { Pool } = require('pg')
+const { Pool } = require('pg')
 app.set('port', process.env.PORT || 3002)
 app.use(cors());
 // app.use(cors(origin))
@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const { pool } = require('./config');
+// const { pool } = require('./config');
 // app.use(express.json());
 
 // const isProduction = process.env.NODE_ENV === 'production'
@@ -20,10 +20,10 @@ const { pool } = require('./config');
 // }
   
 
-// const pool = new Pool({
-//   connectionString: 'postgres://itenshaeozjfsg:6c3986c2fab988d8b7b65fad2b92169f5a962530e1867bb557ad0034e1560f2a@ec2-3-217-216-13.compute-1.amazonaws.com:5432/d5diess3f89bl8',
-//   ssl: { rejectUnauthorized: false }
-// })
+const pool = new Pool({
+  connectionString: 'postgres://nmnzrevhvqlvlf:7fdb43aff2fd279d4800e53dc6b90954810dea7b2c26018adbb193059627c9ce@ec2-3-225-41-234.compute-1.amazonaws.com:5432/dfr1lbi5hi600i',
+  ssl: { rejectUnauthorized: false }
+})
 
 
 app.get('/', (req, res) => {
