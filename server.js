@@ -4,7 +4,8 @@ const cors = require('cors');
 const app = express();
 // const { Pool } = require('pg')
 app.set('port', process.env.PORT || 3002)
-app.use(cors());
+// app.use(cors());
+app.use(cors(origin))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,11 +15,10 @@ const { pool } = require('./config');
 
 // const isProduction = process.env.NODE_ENV === 'production'
 
-// const origin = {
-  //   origin: isProduction ? 'https://kickstart-this-api.herokuapp.com/' : '*'
-  // }
+const origin = {
+    origin: isProduction ? 'https://kickstartthisapi.herokuapp.com/' : '*'
+  }
   
-  // app.use(cors(origin))
 
 // const pool = new Pool({
 //   connectionString: 'postgres://itenshaeozjfsg:6c3986c2fab988d8b7b65fad2b92169f5a962530e1867bb557ad0034e1560f2a@ec2-3-217-216-13.compute-1.amazonaws.com:5432/d5diess3f89bl8',
@@ -30,7 +30,17 @@ app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
       console.log(err, response)
       err
-      ? res.status(500).send(err.message)
+      ? res.status(500).send(`Database error: ${err.message}`)
+      : res.status(200).send({rows: response.rows})
+    })
+})
+
+app.get('/product/:id', (req, res) => {
+  const { id } = req.params;
+  pool.query(`SELECT * FROM products WHERE product_id = ${id}`, (err, response) => {
+    console.log(err, response)
+      err
+      ? res.status(500).send(`Database error: ${err.message}`)
       : res.status(200).send({rows: response.rows})
     })
 })
