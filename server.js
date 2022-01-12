@@ -6,8 +6,17 @@ const { pool } = require('./config');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+
+// app.use(cors());
 // app.use(express.json());
+
+const isProduction = process.env.NODE_ENV === 'production'
+
+const origin = {
+  origin: isProduction ? 'https://kickstart-this-api.herokuapp.com/' : '*',
+}
+
+app.use(cors(origin))
 
 app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
