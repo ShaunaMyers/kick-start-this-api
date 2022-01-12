@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const isProduction = process.env.NODE_ENV === 'production'
 
 const origin = {
-  origin: isProduction ? 'https://kickstart-this-api.herokuapp.com/' : '*',
+  origin: isProduction ? 'https://kickstart-this-api.herokuapp.com/' : '*'
 }
 
 app.use(cors(origin))
