@@ -4,8 +4,8 @@ const cors = require('cors');
 const app = express();
 // const { Pool } = require('pg')
 app.set('port', process.env.PORT || 3002)
-// app.use(cors());
-app.use(cors(origin))
+app.use(cors());
+// app.use(cors(origin))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,9 +15,9 @@ const { pool } = require('./config');
 
 // const isProduction = process.env.NODE_ENV === 'production'
 
-const origin = {
-    origin: isProduction ? 'https://kickstartthisapi.herokuapp.com/' : '*'
-  }
+// const origin = {
+//     origin: isProduction ? 'https://kickstartthisapi.herokuapp.com/' : '*'
+// }
   
 
 // const pool = new Pool({
