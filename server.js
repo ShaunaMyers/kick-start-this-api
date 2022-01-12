@@ -2,21 +2,29 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { pool } = require('./config');
+const { Pool } = require('pg')
+app.set('port', process.env.PORT || 3002)
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cors());
+// const { pool } = require('./config');
 // app.use(express.json());
 
-const isProduction = process.env.NODE_ENV === 'production'
+// const isProduction = process.env.NODE_ENV === 'production'
 
-const origin = {
-  origin: isProduction ? 'https://kickstart-this-api.herokuapp.com/' : '*'
-}
+// const origin = {
+  //   origin: isProduction ? 'https://kickstart-this-api.herokuapp.com/' : '*'
+  // }
+  
+  // app.use(cors(origin))
 
-app.use(cors(origin))
+const pool = new Pool({
+  connectionString: 'postgres://itenshaeozjfsg:6c3986c2fab988d8b7b65fad2b92169f5a962530e1867bb557ad0034e1560f2a@ec2-3-217-216-13.compute-1.amazonaws.com:5432/d5diess3f89bl8',
+  ssl: { rejectUnauthorized: false }
+})
+
 
 app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
@@ -72,6 +80,6 @@ app.delete('/products/:id', (req, res) => {
     })
 })
 
-app.listen(process.env.PORT || 3002, () => {
-  console.log(`Server listening`)
+app.listen(app.get('port'), () => {
+  console.log(`Server listening on ${app.get('port')}`)
 })
