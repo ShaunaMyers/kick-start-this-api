@@ -1,15 +1,15 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { Pool } = require('pg')
+const app = express();
+// const { Pool } = require('pg')
 app.set('port', process.env.PORT || 3002)
 app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const { pool } = require('./config');
+const { pool } = require('./config');
 // app.use(express.json());
 
 // const isProduction = process.env.NODE_ENV === 'production'
@@ -20,17 +20,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
   
   // app.use(cors(origin))
 
-const pool = new Pool({
-  connectionString: 'postgres://itenshaeozjfsg:6c3986c2fab988d8b7b65fad2b92169f5a962530e1867bb557ad0034e1560f2a@ec2-3-217-216-13.compute-1.amazonaws.com:5432/d5diess3f89bl8',
-  ssl: { rejectUnauthorized: false }
-})
+// const pool = new Pool({
+//   connectionString: 'postgres://itenshaeozjfsg:6c3986c2fab988d8b7b65fad2b92169f5a962530e1867bb557ad0034e1560f2a@ec2-3-217-216-13.compute-1.amazonaws.com:5432/d5diess3f89bl8',
+//   ssl: { rejectUnauthorized: false }
+// })
 
 
 app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
       console.log(err, response)
       err
-      ? res.status(500).send('Database Error')
+      ? res.status(500).send(err.message)
       : res.status(200).send({rows: response.rows})
     })
 })
