@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const pool = require("./db");
-app.set('port', process.env.PORT || 3000);
+const { pool } = require('./config');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.json());
+// app.use(express.json());
 
 app.get('/', (req, res) => {
     pool.query('SELECT * FROM products', (err, response) => {
@@ -61,8 +63,6 @@ app.delete('/products/:id', (req, res) => {
     })
 })
 
-app.locals.title = "Kickstart This API"
-
-app.listen(app.get('port'), () => {
-    console.log(`${app.locals.title} is running on port ${app.get('port')}.`)
+app.listen(process.env.PORT || 3002, () => {
+  console.log(`Server listening`)
 })
