@@ -62,8 +62,8 @@ app.patch('/products/:id', (req, res) => {
     })
 })
 
-app.delete('/products/:id', (req, res) => {
-    const { id } = req.params;
+app.delete('/products', (req, res) => {
+    const { id } = req.body;
     db.query(`DELETE FROM products WHERE id = ${id}`, 
     (err, response) => {
       console.log(err, response)
