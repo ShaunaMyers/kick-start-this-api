@@ -53,7 +53,7 @@ app.post('/products', (req, res) => {
 app.patch('/products/:id', (req, res) => {
     const { id } = req.params;
     const { funds_raised } = req.body
-    db.query(`UPDATE products SET funds_raised =${funds_raised} WHERE id=${id} RETURNING *`,
+    db.query(`UPDATE products SET funds_raised = ${funds_raised} WHERE product_id = ${id}`,
     (err, response) => {
       console.log(err, response)
       err 
@@ -64,7 +64,7 @@ app.patch('/products/:id', (req, res) => {
 
 app.delete('/products', (req, res) => {
     const { id } = req.body;
-    db.query(`DELETE FROM products WHERE id = ${id}`, 
+    db.query(`DELETE FROM products WHERE product_id = ${id}`, 
     (err, response) => {
       console.log(err, response)
       err 
