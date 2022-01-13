@@ -5,26 +5,9 @@ const app = express();
 const { db } = require('./config')
 app.set('port', process.env.PORT || 3002)
 app.use(cors());
-// app.use(cors(origin))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// const { pool } = require('./config');
-// app.use(express.json());
-
-// const isProduction = process.env.NODE_ENV === 'production'
-
-// const origin = {
-//     origin: isProduction ? 'https://kickstartthisapi.herokuapp.com/' : '*'
-// }
-  
-
-// const pool = new Pool({
-//   connectionString: 'postgres://nmnzrevhvqlvlf:7fdb43aff2fd279d4800e53dc6b90954810dea7b2c26018adbb193059627c9ce@ec2-3-225-41-234.compute-1.amazonaws.com:5432/dfr1lbi5hi600i',
-//   ssl: { rejectUnauthorized: false }
-// })
-
 
 app.get('/', (req, res) => {
     db.query('SELECT * FROM products', (err, response) => {
