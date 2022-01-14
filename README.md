@@ -2,7 +2,7 @@
 
 # Turing Tip Jar API
 
-This API was built with Express with a PostgreSQL database for the project [Turing Tip Jar](https://github.com/ShaunaMyers/kick-start-this).
+This API was built with Express with a PostgreSQL database for the project [Kickstart This](https://github.com/ShaunaMyers/kick-start-this).
 
 The API is deployed on Heroku: [here](https://kickstartthisapi.herokuapp.com/)
 
