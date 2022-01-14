@@ -1,7 +1,5 @@
 # kick-start-this-api
 
-# Turing Tip Jar API
-
 This API was built with Express with a PostgreSQL database for the project [Kickstart This](https://github.com/ShaunaMyers/kick-start-this).
 
 The API is deployed on Heroku: [here](https://kickstartthisapi.herokuapp.com/)
@@ -22,7 +20,7 @@ Fetches can be made directly from the link above or this repo can be installed a
 - Allows clients to: 
   - fetch all products from a PostgreSQL Database hosted on Heroku 
   - post a new product
-  - delete a tip
+  - delete a product
   - add a new product or update an existing product- funds raised 
   
 ## Installation
